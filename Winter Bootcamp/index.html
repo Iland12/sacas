@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tic Tac Toe - Optivoxx Bootcamp</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="game-header">
+        <h1 class="game-title">TIC TAC TOE | OPTIVIXX TECHNOLOGIES</h1>
+        <div id="bigTurnDisplay" class="turn-display turn-x">
+          PLAYER X'S TURN
+        </div>
+      </header>
+
+      <div class="board-wrapper">
+        <div class="board" id="board">
+          <div class="board-row">
+            <button class="square" data-index="0"></button>
+            <button class="square" data-index="1"></button>
+            <button class="square" data-index="2"></button>
+          </div>
+          <div class="board-row">
+            <button class="square" data-index="3"></button>
+            <button class="square" data-index="4"></button>
+            <button class="square" data-index="5"></button>
+          </div>
+          <div class="board-row">
+            <button class="square" data-index="6"></button>
+            <button class="square" data-index="7"></button>
+            <button class="square" data-index="8"></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="game-controls">
+        <h2 id="status" class="status-text">Game Active</h2>
+        <button type="button" class="restart-btn" id="resetBtn">
+          RESTART MISSION
+        </button>
+      </div>
+
+      <footer class="branding-footer">
+        <p>Built by <span class="dev-name">Iland Maimom</span></p>
+        <div class="divider"></div>
+        <p class="brand-name">
+          Winter Tech BootCamp 2025 •
+          <span class="optivoxx">Optivoxx Technologies</span>
+        </p>
+      </footer>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

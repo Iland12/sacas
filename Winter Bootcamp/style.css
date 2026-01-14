@@ -1,0 +1,331 @@
+/* --- ❄️ Variables & Optivoxx Theme ❄️ --- */
+:root {
+  /* Brand Palette */
+  --accent-1: #e1005b; /* Magenta */
+  --accent-2: #9c27b0; /* Violet */
+  --accent-3: #2196f3; /* Cyan */
+
+  /* Victory Palette (Professional Gold) */
+  --win-start: #fbbf24;
+  --win-end: #d97706;
+
+  /* Winter Night Palette */
+  --bg-deep: #0f172a; /* Deep Slate Blue */
+  --ice-glass: rgba(255, 255, 255, 0.05);
+  --ice-border: rgba(33, 150, 243, 0.2);
+  --text-main: #f8fafc;
+
+  /* Gradients */
+  --brand-gradient: linear-gradient(
+    90deg,
+    var(--accent-1),
+    var(--accent-2),
+    var(--accent-3)
+  );
+  --gold-gradient: linear-gradient(135deg, var(--win-start), var(--win-end));
+
+  --winter-glow: 0 0 40px rgba(33, 150, 243, 0.1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--bg-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  color: var(--text-main);
+  overflow: hidden;
+  position: relative;
+
+  /* ❄️ ADDED: CSS SNOWFALL EFFECT ❄️ */
+  /* This creates 2 layers of white dots */
+  background-image: radial-gradient(white 2px, transparent 2px),
+    radial-gradient(rgba(255, 255, 255, 0.7) 1px, transparent 1px);
+  background-size: 400px 400px, 300px 300px;
+  background-position: 0 0, 0 0;
+  animation: snowfall 15s linear infinite;
+}
+
+/* ❄️ ADDED: Keyframes to make snow fall down ❄️ */
+@keyframes snowfall {
+  0% {
+    background-position: 0 0, 0 0;
+  }
+  100% {
+    background-position: 0 400px, 0 300px;
+  }
+}
+
+/* --- Background Atmosphere (Winter Aurora) --- */
+body::before,
+body::after {
+  content: "";
+  position: absolute;
+  width: 60vw;
+  height: 60vw;
+  border-radius: 50%;
+  filter: blur(100px);
+  z-index: -1;
+  opacity: 0.25;
+  animation: floatBG 20s infinite alternate ease-in-out;
+}
+body::before {
+  background: var(--accent-3); /* Cyan Glow */
+  top: -20%;
+  left: -20%;
+}
+body::after {
+  background: var(--accent-2); /* Violet Glow */
+  bottom: -20%;
+  right: -20%;
+  animation-delay: -5s;
+}
+
+@keyframes floatBG {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    transform: translate(40px, 20px) scale(1.05);
+  }
+}
+
+/* --- Main Layout --- */
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+  z-index: 10;
+}
+
+/* --- 1. Header Section --- */
+.game-header {
+  text-align: center;
+}
+
+.game-title {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* BIG TURN DISPLAY */
+.turn-display {
+  font-size: 3rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: all 0.3s ease;
+  /* Subtle glass stroke */
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1);
+}
+
+.turn-x {
+  color: var(--accent-3); /* Cyan */
+  text-shadow: 0 0 25px rgba(33, 150, 243, 0.5);
+}
+.turn-o {
+  color: var(--accent-1); /* Magenta */
+  text-shadow: 0 0 25px rgba(225, 0, 91, 0.5);
+}
+.turn-winner {
+  /* Victory Gold */
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-stroke: 0px;
+  filter: drop-shadow(0 0 20px rgba(251, 191, 36, 0.6));
+  animation: pulse 1.5s infinite;
+}
+
+/* --- 2. The Board (Frosted Glass) --- */
+.board-wrapper {
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--ice-border);
+  border-radius: 24px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: var(--winter-glow), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+}
+
+.board {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.board-row {
+  display: flex;
+  gap: 8px;
+}
+
+.square {
+  width: 85px;
+  height: 85px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  /* Subtle Gradient */
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.06),
+    rgba(255, 255, 255, 0.01)
+  );
+  color: white;
+  font-size: 3rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* 🛑 FIX: Hover only works if NOT winning */
+.square:not(.square--winning):hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-2px);
+  border-color: var(--accent-3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.square:active {
+  transform: translateY(1px);
+}
+
+/* --- 🏆 PROFESSIONAL WINNING STATE 🏆 --- */
+.square--winning {
+  background: var(--gold-gradient); /* Solid Gold Gradient */
+  border-color: #fbbf24;
+  color: #1e293b; /* Dark text for readability on gold */
+  text-shadow: none;
+  box-shadow: 0 0 30px rgba(251, 191, 36, 0.4);
+  transform: scale(1.02); /* Slight pop */
+  cursor: default; /* No pointer cursor */
+  z-index: 2;
+}
+
+/* --- 3. Bottom Controls --- */
+.game-controls {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.status-text {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #94a3b8;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  height: 20px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.status-visible {
+  opacity: 1;
+}
+
+/* Restart Button (Brand Theme) */
+.restart-btn {
+  padding: 14px 40px;
+  border-radius: 50px;
+  border: none;
+  /* Brand Gradient */
+  background-image: var(--brand-gradient);
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 20px rgba(156, 39, 176, 0.3);
+}
+
+.restart-btn:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(156, 39, 176, 0.5);
+}
+
+.restart-btn:active {
+  transform: translateY(1px);
+}
+
+/* --- 4. Footer (Signature) --- */
+.branding-footer {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.05em;
+  width: 100%;
+}
+
+.dev-name {
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  /* Gradient Name */
+  background-image: var(--brand-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.divider {
+  width: 40px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-1), var(--accent-3));
+  margin: 12px auto;
+  border-radius: 2px;
+  opacity: 0.5;
+}
+
+.brand-name {
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.optivoxx {
+  color: var(--accent-3);
+  font-weight: 700;
+}
+
+/* Animations */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Mobile */
+@media (max-width: 500px) {
+  .turn-display {
+    font-size: 2.2rem;
+  }
+  .square {
+    width: 70px;
+    height: 70px;
+    font-size: 2.5rem;
+  }
+}

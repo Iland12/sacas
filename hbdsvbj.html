@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Voice Command to Open YouTube</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/annyang/2.6.1/annyang.min.js"></script>
+  </head>
+  <body>
+    <h2>Say "alert" to open YouTube</h2>
+
+    <script>
+      if (annyang) {
+        var commands = {
+          alert: function () {
+            window.open("https://www.youtube.com", "_blank");
+            // alert("BHJCd");
+          },
+        };
+
+        annyang.addCommands(commands);
+        annyang.start();
+      } else {
+        alert("Speech recognition not supported");
+      }
+    </script>
+  </body>
+</html>
